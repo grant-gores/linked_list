@@ -20,6 +20,31 @@ class LinkedList
     @head = new_start
   end
 
+  def size
+    size = 0
+    current = @head
+    while current != nil
+      size += 1
+      current = current.next_node
+    end
+    size
+  end
+
+  def head
+    @head
+  end
+
+  def tail
+    current = @head
+    while current.next_node != nil
+      current = current.next_node
+    end
+    current
+  end
+
+  def at(index)
+  end
+
 end
 
 class Node
@@ -33,13 +58,18 @@ end
 
 list = LinkedList.new
 
-p list.append('dog')
-p list.append('cat')
-p list.append('parrot')
-p list.append('hamster')
-p list.append('snake')
-p list.append('turtle')
+list.append('dog')
+list.append('cat')
+list.append('parrot')
+list.append('hamster')
+list.append('snake')
+list.append('turtle')
+list.append('work?')
 
 p list.prepend('doggie')
+
+p list.size
+
+p list.tail
 
 p list

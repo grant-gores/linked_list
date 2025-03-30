@@ -43,6 +43,42 @@ class LinkedList
   end
 
   def at(index)
+    current = @head
+    count = 0
+    while current != nil
+      if count == index
+        return current
+      end
+      current = current.next_node
+      count += 1
+    end
+    return nil
+  end
+
+  def pop
+    return nil if @head.nil?
+    if @head.next_node.nil?
+      @head = nil
+      return
+    end
+
+    current = @head
+    while current.next_node && current.next_node.next_node
+      current = current.next_node
+    end
+
+    current.next_node = nil
+  end
+
+  def contains?(value)
+    current = @head
+    while current != nil
+      if current.value == value
+        return true
+      end
+      current = current.next_node
+    end
+    false
   end
 
 end
@@ -66,10 +102,6 @@ list.append('snake')
 list.append('turtle')
 list.append('work?')
 
-p list.prepend('doggie')
-
-p list.size
-
-p list.tail
+p list.at(2)
 
 p list

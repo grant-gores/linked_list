@@ -81,6 +81,79 @@ class LinkedList
     false
   end
 
+  def find(value)
+    current = @head
+    count = 0
+    while current != nil
+      if current.value == value
+        return count
+      end
+      current = current.next_node
+      count += 1
+    end
+    return nil
+  end
+
+  def to_s
+    list = []
+    current = @head
+    while current != nil
+      list << "(#{current.value})"
+      current = current.next_node
+    end
+    list.join(" -> ") + " -> nil"
+  end
+
+  def insert_at(value, index)
+    if index == 0
+      new_node = Node.new(value)
+      new_node.next_node = @head
+      @head = new_node
+      return
+    end
+
+    current = @head
+    count = 0
+    
+    # Traverse until we find the node just before the index
+    while current != nil && count < index - 1
+      current = current.next_node
+      count += 1
+    end
+    
+    # If we've reached the index
+    if current != nil
+      new_node = Node.new(value)
+      new_node.next_node = current.next_node  # New node points to the next node
+      current.next_node = new_node  # Previous node points to the new node
+    else
+      puts "Index out of bounds"
+    end
+  end
+
+    def remove_at(index)
+      # If removing the head node
+      if index == 0
+        @head = @head.next_node
+        return
+      end
+      
+      current = @head
+      count = 0
+      
+      # Traverse until we find the node just before the one to remove
+      while current != nil && count < index - 1
+        current = current.next_node
+        count += 1
+      end
+      
+      # If the index is valid, remove the node
+      if current != nil && current.next_node != nil
+        current.next_node = current.next_node.next_node
+      else
+        puts "Index out of bounds"
+      end
+    end
 end
 
 class Node
@@ -91,17 +164,3 @@ class Node
     @next_node = next_node
   end
 end
-
-list = LinkedList.new
-
-list.append('dog')
-list.append('cat')
-list.append('parrot')
-list.append('hamster')
-list.append('snake')
-list.append('turtle')
-list.append('work?')
-
-p list.at(2)
-
-p list
